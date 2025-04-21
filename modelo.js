@@ -1,0 +1,675 @@
+/** @format */
+
+export const modelo1 = {
+    scores: {
+        _id: '66ead2d379b2b6c3454556b8',
+        return: {
+            dataConsulta: '18/09/2024 10:17:05',
+            pessoaFisica: {
+                score: 926,
+                capacidadePagamento:
+                    'O consumidor paga 100% ou a maioria das suas contas em dia na média dos últimos 12 meses.',
+                perfil:
+                    'O consumidor pode apresentar algumas divergências sobre o comportamento esperado na utilização de produtos financeiros.',
+            },
+            pessoaJuridica: null,
+            observacao: null,
+        },
+    },
+    sintegras: [
+        {
+            _id: '66e034f14bbedbc89c327ad8',
+            return: [
+                {
+                    abertura_data: '01/04/2011',
+                    atividade_economica: '151202',
+                    atividade_economica_secundaria: '',
+                    cnpj: '',
+                    cnpj_cpf: '066.048.906-60',
+                    consulta_data: '',
+                    consulta_datahora: '',
+                    cpf: '066.048.906-60',
+                    email: '',
+                    endereco_bairro: 'Zona Rural/MG-223',
+                    endereco_cep: '38449999',
+                    endereco_complemento: '',
+                    endereco_logradouro: 'RODOVIA 36KMS À DIREITA +4KMS ATÉ SEDE',
+                    endereco_municipio: '3103504 - Araguari',
+                    endereco_numero: 'SEM NUMERO',
+                    endereco_uf: 'MG',
+                    inscricao_estadual: '17541450006',
+                    nome: '',
+                    nome_fantasia: 'FAZª 2 PONTES/PATRONA(LG.DEN.GRAMADINHO)',
+                    normalizado_abertura_data: '01/04/2011',
+                    normalizado_cnpj: '',
+                    normalizado_cnpj_cpf: '06604890660',
+                    normalizado_consulta_data: '',
+                    normalizado_consulta_datahora: '',
+                    normalizado_cpf: '06604890660',
+                    normalizado_endereco_cep: '38449999',
+                    normalizado_inscricao_estadual: '17541450006',
+                    normalizado_situacao_cadastral_data: '29/09/2021',
+                    propriedade: '',
+                    razao_social: 'DANIEL VIANA DE ALMEIDA',
+                    regime_apuracao: 'Normal',
+                    situacao_cadastral: 'Não Habilitado',
+                    situacao_cadastral_data: '29/09/2021',
+                    telefone: '',
+                    site_receipt:
+                        'https://us-central1-infosimples-data.cloudfunctions.net/infosimples-storage/25530/CZ63WlkxeuZ0PW8mhUgt5fD-p8BSDBrGOx9nctYagFs=/1727096699/IfQ3dC/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2luZm9zaW1wbGVzLWFwaS10bXAvYXBpL3NpbnRlZ3JhL3VuaWZpY2FkYS8yMDI0MDkxNjEwMDQ1OS9xMzdTdjhoSU10V2FSa2NNYmU3MVo3TWF5LWVWY3JiVy8xZTljZTE0NGNiMzlkMjc3OTE3YTZlYmM5ZWM5YWMzYV8wX24wVQ==.html',
+                },
+            ],
+        },
+        {
+            _id: '66e0a23bca268c667a605015',
+            return: {
+                codigoControle: null,
+                dataConsulta: '10/09/2024 13:43:00',
+                ie: '29.485.875-0',
+                cnpj: null,
+                nomeEmpresarial: 'DANIEL VIANA DE ALMEIDA',
+                nomeFantasia: null,
+                naturezaJuridica: null,
+                logradouro: 'TO 283 A PAU D ARCO',
+                numero: null,
+                complemento: null,
+                cep: '77780-000',
+                bairro: 'ZONA RURAL',
+                municipio: 'ARAPOEMA',
+                uf: 'TO',
+                telefone: null,
+                email: null,
+                situacaoCadastral: 'NÃO HABILITADO - Baixa voluntária',
+                motivoSituacaoCadastral: null,
+                dataAbertura: null,
+                dataInicioAtividade: null,
+                dataFimAtividade: null,
+                dataSituacaoCadastral: null,
+                ocorrenciaFiscal: null,
+                regimeApuracao: null,
+                atividadeEconomicaPrincipal: 'Criação de bovinos para corte',
+                atividadesEconomicasSecundarias: [],
+                dataCredenciamentoEmissorNFe: null,
+                indicadorObrigatoriedadeNFe: null,
+                dataInicioObrigatoriedadeNFe: null,
+                observacao: null,
+                situacaoContribuinteNaData: null,
+                inscricoesEstaduais: [],
+                informacaoIBGE: {
+                    codigo: '1702307',
+                    uf: 'TO',
+                    cidade: 'ARAPOEMA',
+                    tipo: 'Município',
+                    dataConsulta: '10/09/2024 13:43:00',
+                },
+            },
+        },
+    ],
+    financialRisk: {
+        _id: '66f568a5225240ed78f8fdcc',
+        return: {
+            FinancialRisk: {
+                TotalAssets: 'ABAIXO DE 100K',
+                EstimatedIncomeRange: '2 A 3 SM',
+                IsCurrentlyEmployed: true,
+                IsCurrentlyOwner: false,
+                LastOccupationStartDate: '2024-06-26T00:00:00Z',
+                IsCurrentlyOnCollection: false,
+                Last365DaysCollectionOccurrences: 0,
+                CurrentConsecutiveCollectionMonths: 0,
+                IsCurrentlyReceivingAssistance: false,
+                FinancialRiskScore: 650,
+                FinancialRiskLevel: 'C',
+            },
+        },
+    },
+    lawsuits: {
+        _id: '67042162405afa601c39ffbd',
+        return: {
+            Processes: {
+                Lawsuits: [],
+                TotalLawsuits: 0,
+                TotalLawsuitsAsAuthor: 0,
+                TotalLawsuitsAsDefendant: 0,
+                TotalLawsuitsAsOther: 0,
+                Last30DaysLawsuits: 0,
+                Last90DaysLawsuits: 0,
+                Last180DaysLawsuits: 0,
+                Last365DaysLawsuits: 0,
+            },
+            status: {
+                processes: [
+                    {
+                        Code: 0,
+                        Message: 'OK',
+                    },
+                ],
+            },
+        },
+        company_id: '667d59adeb0b232ca6cbd165',
+        client_id: '66deef5cc01465bcb8334796',
+        updated_at: '2024-10-07T17:58:58.008Z',
+        updated_by: '667d6cb0bfec68a7bf3ccfa8',
+        created_at: '2024-10-07T17:58:58.008Z',
+        created_by: '667d6cb0bfec68a7bf3ccfa8',
+        __v: 0,
+    },
+
+    creditRisk: {
+        _id: '66f568a5225240ed78f8fdd1',
+        return: {
+            IndebtednessQuestion: {
+                LikelyInDebt: false,
+            },
+            status: {
+                indebtedness_question: [
+                    {
+                        Code: 0,
+                        Message: 'OK',
+                    },
+                ],
+            },
+        },
+    },
+
+    basicData: {
+        _id: '66deef5cc01465bcb8334796',
+        fiscal_number: 'U2FsdGVkX18JaQ8TBXHfxUQ6qhRJQBFWCT+o/BZ2Rck=',
+        first_fiscal_number: '066048',
+        created_at: '2024-09-09T12:51:40.234Z',
+        created_by: '667d6cb0bfec68a7bf3ccfa8',
+        updated_at: '2024-09-09T12:54:56.896Z',
+        updated_by: '66805cedfc1b705f4f708146',
+        company_id: '667d59adeb0b232ca6cbd165',
+        __v: 0,
+        basic_data: {
+            MatchKeys: 'doc{06604890660}',
+            BasicData: {
+                TaxIdNumber: '06604890660',
+                TaxIdCountry: 'BRAZIL',
+                AlternativeIdNumbers: {},
+                Name: 'DANIEL VIANA DE ALMEIDA',
+                Aliases: {
+                    CommonName: 'DANIEL ALMEIDA',
+                    StandardizedName: 'DANIEL VIANA ALMEIDA',
+                },
+                Gender: 'M',
+                NameWordCount: 4,
+                NumberOfFullNameNamesakes: 11,
+                NameUniquenessScore: 0.978,
+                FirstNameUniquenessScore: 0.001,
+                FirstAndLastNameUniquenessScore: 0.001,
+                BirthDate: '1984-09-25T00:00:00Z',
+                Age: 39,
+                ZodiacSign: 'LIBRA',
+                ChineseSign: 'Rat',
+                BirthCountry: 'BRASILEIRA',
+                MotherName: 'REBECA VIANA DE ALMEIDA',
+                FatherName: '',
+                MaritalStatusData: {},
+                TaxIdStatus: 'REGULAR',
+                TaxIdOrigin: 'RECEITA FEDERAL',
+                TaxIdFiscalRegion: 'MG',
+                HasObitIndication: false,
+                TaxIdStatusDate: '2024-08-17T00:00:00',
+                TaxIdStatusRegistrationDate: '2001-11-26T00:00:00Z',
+                CreationDate: '2017-02-20T00:00:00Z',
+                LastUpdateDate: '2024-08-17T00:00:00',
+            },
+            status: {
+                basic_data: [
+                    {
+                        Code: 0,
+                        Message: 'OK',
+                    },
+                ],
+            },
+        },
+        name: 'DANIEL VIANA DE ALMEIDA',
+        extended: {
+            cpf: '066.048.906-60',
+            nome: 'DANIEL VIANA DE ALMEIDA',
+            sexo: 'Masculino',
+            dataNascimento: '25/09/1984 00:00:00',
+            nomeMae: 'REBECA VIANA DE ALMEIDA',
+            idade: 39,
+            signo: 'LIBRA',
+            telefones: [
+                {
+                    telefoneComDDD: '(34) 99102-6909',
+                    telemarketingBloqueado: false,
+                    operadora: 'TIM',
+                    tipoTelefone: 'CELULAR',
+                    whatsApp: false,
+                },
+                {
+                    telefoneComDDD: '(34) 98809-2914',
+                    telemarketingBloqueado: false,
+                    operadora: 'CLARO',
+                    tipoTelefone: 'CELULAR PRE PAGO',
+                    whatsApp: false,
+                },
+                {
+                    telefoneComDDD: '(34) 98433-5639',
+                    telemarketingBloqueado: false,
+                    operadora: 'CLARO',
+                    tipoTelefone: 'CELULAR',
+                    whatsApp: true,
+                },
+                {
+                    telefoneComDDD: '(34) 99942-4460',
+                    telemarketingBloqueado: false,
+                    operadora: 'VIVO',
+                    tipoTelefone: 'CELULAR',
+                    whatsApp: false,
+                },
+                {
+                    telefoneComDDD: '(34) 3241-3846',
+                    telemarketingBloqueado: false,
+                    operadora: 'CLARO',
+                    tipoTelefone: 'RESIDENCIAL',
+                    whatsApp: false,
+                },
+            ],
+            enderecos: [
+                {
+                    logradouro: 'R PE LAFAIETE',
+                    numero: '66',
+                    complemento: 'AP 31 AT 31',
+                    bairro: 'CENTRO',
+                    cidade: 'ARAGUARI',
+                    uf: 'MG',
+                    cep: '38440-220',
+                },
+                {
+                    logradouro: 'R OLIMPIO DOS SANTOS',
+                    numero: '66',
+                    complemento: 'AP 31',
+                    bairro: 'CENTRO',
+                    cidade: 'ARAGUARI',
+                    uf: 'MG',
+                    cep: '38440-100',
+                },
+                {
+                    logradouro: 'AV MODESTO ALVES PRUDEN',
+                    numero: '81',
+                    complemento: 'Q A LT 14',
+                    bairro: 'TIRADENTES',
+                    cidade: 'TUPACIGUARA',
+                    uf: 'MG',
+                    cep: '38480-000',
+                },
+                {
+                    logradouro: 'R JO O ELIAS DA FONSEC',
+                    numero: '56',
+                    complemento: null,
+                    bairro: 'NOVA ESPERAN A',
+                    cidade: 'TUPACIGUARA',
+                    uf: 'MG',
+                    cep: '38480-000',
+                },
+            ],
+            emails: [],
+            rendaEstimada: '3600.00',
+        },
+    },
+
+    chat_risk: {
+        _id: '679132690d06177e63076e66',
+        return:
+            '{\n"ind_score":926,\n"boa_vista_score":913,\n"boa_vista_ocorrencias":0,\n"restritivo_score":null,\n"restritivo_ocorrencias":null,\n"boa_vista_pefin_ocorrencias":0,\n"quod_ocorrencias":0,\n"quod_score":926,\n"pgfn_extended_debitos_pgfn":false,\n"pgfn_extended_debitos_rfb":false,\n"pgfn_return_total_divida":0,\n"protests":false,\n"protests_total":0,\n"mte_conseguiu_emitir_certidao_negativa":true,\n"financialRisk_EstimatedIncomeRange":3000,\n"financialRisk_TotalAssets":100000,\n"oldies_protests":false,\n"oldies_protests_value":0,\n"last_year_protests":false,\n"last_year_protests_value":0,\n"cities_with_protests":0,\n"irpf":"Saldo inexistente de imposto a pagar ou a restituir",\n"media_score":919.5,\n"patrimonio_total":null,\n"dividas":null,\n"limite_credito":null,\n"basicData":true,\n"mensagem":"Cliente avaliado tem um histórico limpo de protestos e não possui registros de dívidas significativas com a PGFN ou RFB. As pontuações dos scores da QUOD e Boa Vista indicam uma posição financeira confiável. Sem dados de IRPF médio, consideramos para renda e patrimônio os valores base indicados. A análise resulta em um risco baixo, dada a ausência de pendências financeiras e protestos relevantes. Recomendamos monitoramento constante para eventuais alterações no cenário."\n}',
+    },
+    boaVista: {
+        _id: '66e9cc689aa83ed5e38a1764',
+        return: {
+            essencial: {
+                resumo_ocorrencias_de_debitos: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['108'],
+                        registro: ['N'],
+                    },
+                ],
+                resumoConsultas_anteriores_90_dias: [
+                    {
+                        tamanhoRegistro: ['49'],
+                        tipoRegistro: ['111'],
+                        registro: ['S'],
+                        total: ['00001'],
+                        ano_1: ['2024'],
+                        mes_1: ['09'],
+                        total_1: ['0001'],
+                        ano_2: ['2024'],
+                        mes_2: ['08'],
+                        total_2: ['0000'],
+                        ano_3: ['2024'],
+                        mes_3: ['07'],
+                        total_3: ['0000'],
+                        ano_4: ['2024'],
+                        mes_4: ['06'],
+                        total_4: ['0000'],
+                    },
+                ],
+                informacoes_complementares: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['123'],
+                        registro: ['N'],
+                    },
+                ],
+                debitos: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['124'],
+                        registro: ['N'],
+                    },
+                ],
+                consultas_anteriores: [
+                    {
+                        tamanhoRegistro: ['66'],
+                        tipoRegistro: ['126'],
+                        registro: ['S'],
+                        tipoOcorrencia: ['CC'],
+                        data: ['25/09/2024'],
+                        moeda: [''],
+                        valor: ['0,00'],
+                        informante: ['55 676 277 DANIEL VIANA DE ALMEIDA'],
+                        produto: ['S'],
+                    },
+                ],
+                titulos_protestados: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['142'],
+                        registro: ['N'],
+                    },
+                ],
+                resumo_titulos_protestados: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['146'],
+                        registro: ['N'],
+                    },
+                ],
+                resumo_devolucoes_informadas_pelo_ccf: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['214'],
+                        registro: ['N'],
+                    },
+                ],
+                nome_documentos: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['241'],
+                        registro: ['N'],
+                    },
+                ],
+                relacao_devolucoes_informadas_pelo_ccf: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['242'],
+                        registro: ['N'],
+                    },
+                ],
+                devolucoes_informadas_pelo_usuario: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['244'],
+                        registro: ['N'],
+                    },
+                ],
+                cheques_sustados_pelo_motivo_21: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['245'],
+                        registro: ['N'],
+                    },
+                ],
+                resumo_devolucoes_informada_pelo_usuario: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['268'],
+                        registro: ['N'],
+                    },
+                ],
+                localizacao: [
+                    {
+                        tamanhoRegistro: ['323'],
+                        tipoRegistro: ['501'],
+                        registro: ['S'],
+                        tipoLogradouro: ['R'],
+                        nomeLogradouro: ['PE LAFAIETE'],
+                        numeroLogradouro: ['66'],
+                        complemento: ['AP 31'],
+                        bairro: ['CENTRO'],
+                        cidade: ['ARAGUARI'],
+                        unidadeFederativa: ['MG'],
+                        cep: ['38440220'],
+                        ddd_1: ['0034'],
+                        telefone_1: ['998692877'],
+                        ddd_2: ['0034'],
+                        telefone_2: ['32413846'],
+                        ddd_3: ['0031'],
+                        telefone_3: ['32413846'],
+                    },
+                ],
+                score_classificacao_varios_modelos: [
+                    {
+                        tamanhoRegistro: ['450'],
+                        tipoRegistro: ['601'],
+                        registro: ['S'],
+                        tipoScore: ['1'],
+                        score: ['913'],
+                        planoExecucao: ['N'],
+                        modeloPlano: ['63'],
+                        nomePlano: [''],
+                        modeloScore: ['63'],
+                        nomeScore: ['NOVO RISCO 6 MESES'],
+                        classificacaoNumerica: ['01'],
+                        classificacaoAlfabetica: ['A'],
+                        probabilidade: ['00410'],
+                        texto: [
+                            'De cada 100 pessoas classificadas nesta classe de score, é provável que 4 apresentem débitos no mercado nos próximos 6 meses.',
+                        ],
+                        codigoNaturezaModelo: ['101'],
+                        descricaoNatureza: ['CREDITO'],
+                        texto2: [''],
+                    },
+                    {
+                        tamanhoRegistro: ['450'],
+                        tipoRegistro: ['601'],
+                        registro: ['S'],
+                        tipoScore: ['1'],
+                        score: ['6'],
+                        planoExecucao: ['N'],
+                        modeloPlano: ['41'],
+                        nomePlano: [''],
+                        modeloScore: ['41'],
+                        nomeScore: ['Renda Presum Faixa'],
+                        classificacaoNumerica: ['06'],
+                        classificacaoAlfabetica: [''],
+                        probabilidade: ['00000'],
+                        texto: ['De R$ 3.001 até R$ 4.000'],
+                        codigoNaturezaModelo: ['103'],
+                        descricaoNatureza: ['RENDA PRESUMIDA'],
+                        texto2: [
+                            'Renda estimada a partir de informações comportamentais e cadastrais do consumidor.',
+                        ],
+                    },
+                ],
+                decisao: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['603'],
+                        registro: ['N'],
+                    },
+                ],
+                mensagem_registro: [
+                    {
+                        tamanhoRegistro: ['004'],
+                        tipoRegistro: ['940'],
+                        registro: ['N'],
+                    },
+                ],
+            },
+        },
+    },
+    pgfn: {
+        _id: '66f2ba5273880ceae9e8214b',
+        return: 'Dados não encontrados',
+        company_id: '667d59adeb0b232ca6cbd165',
+        client_id: '66deef5cc01465bcb8334796',
+        updated_at: '2024-12-19T17:34:52.944Z',
+        updated_by: '667d6cb0bfec68a7bf3ccfa8',
+        created_at: '2024-09-24T13:10:42.353Z',
+        created_by: '66805cedfc1b705f4f708146',
+        __v: 1,
+        extended: [
+            {
+                certidao:
+                    'CERTIDÃO NEGATIVA DE DÉBITOS RELATIVOS AOS TRIBUTOS FEDERAIS E À DÍVIDA ATIVA DA UNIÃO',
+                certidao_codigo: 'DA5E.D281.C825.49E5',
+                cnpj: null,
+                cnpj_situacao: null,
+                comprovante_tipo: 'pdf',
+                conseguiu_emitir_certidao_negativa: true,
+                consulta_comprovante: 'DA5E.D281.C825.49E5',
+                consulta_datahora: '19/12/2024 14:34:47',
+                cpf: '066.048.906-60',
+                debitos_pgfn: false,
+                debitos_rfb: false,
+                descricao: null,
+                emissao_data: '19/12/2024',
+                mensagem:
+                    'CERTIDÃO NEGATIVA DE DÉBITOS RELATIVOS AOS TRIBUTOS FEDERAIS E À DÍVIDA ATIVA DA UNIÃO',
+                nome: 'DANIEL VIANA DE ALMEIDA',
+                normalizado_cnpj: '',
+                normalizado_consulta_datahora: '19/12/2024 14:34:47',
+                normalizado_cpf: '06604890660',
+                observacoes: null,
+                razao_social: 'DANIEL VIANA DE ALMEIDA',
+                situacao: null,
+                tipo: null,
+                validade: '17/06/2025',
+                validade_data: '17/06/2025',
+                validade_prorrogada: null,
+                site_receipt:
+                    'https://us-central1-infosimples-data.cloudfunctions.net/infosimples-storage/24848/KJNimQ6-5Ar-D0OdRE0I-BPYH_HvAjS74B99b26fdNE=/1735234492/zbrHU7/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2luZm9zaW1wbGVzLWFwaS10bXAvYXBpL3JlY2VpdGEtZmVkZXJhbC9wZ2ZuLzIwMjQxMjE5MTQzNDUyL3hxM3lWQTY0SjhFekJ5RE4zRFB3azhWQW9ndlBxRkI2LzgwYWVkZWQ1ZWZmYTYwNDIxMmFiZjU4OTdiYmU4N2M5XzBfNWJj.pdf',
+            },
+        ],
+    },
+    cenprot: {
+        return: 'Não constam protestos nos cartórios participantes do Brasil',
+    },
+    mte: {
+        _id: '6705716cae342f31db661f5a',
+        return: [
+            {
+                cnpj: '066.048.906-60',
+                codigo_autenticidade: 'H8DC46XWAV',
+                conseguiu_emitir_certidao_negativa: true,
+                cpf: '',
+                emissao_datahora:
+                    '08/10/2024, às 14:52:30, conforme horário oficial de Brasília',
+                empregador: null,
+                mensagem: 'NEGATIVA',
+                normalizado_cnpj: '00006604890660',
+                normalizado_cpf: '',
+                normalizado_emissao_datahora: '08/10/2024 14:52:30',
+                site_receipt:
+                    'https://us-central1-infosimples-data.cloudfunctions.net/infosimples-storage/24848/7GcuCE47OAyGqh68o_Z-NdZfVMtHV7wX3e5yF_S3e2Y=/1729014765/hlArKm/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2luZm9zaW1wbGVzLWFwaS10bXAvYXBpL210ZS9jZXJ0aWRhby1kZWJpdG9zLzIwMjQxMDA4MTQ1MjQ1L1ZJZnpEcUZlNWZDSXJDNnYyaUlHbldsOFFUSGFkVHp6L2JkNzI3YjE0NDUzNjJjNDYwMzlkYTI0ZjQyOTliNTJhXzBfT1VF.pdf',
+            },
+        ],
+    },
+
+    irpf: {
+        _id: '67350ac941b4878bb3aa5445',
+        return: [
+            {
+                agencia: null,
+                ano_exercicio: 2024,
+                banco: null,
+                chave_pix: null,
+                consulta_datahora: '14/11/2024 17:11',
+                disponivel_data: null,
+                lote: null,
+                nome: 'DANIEL VIANA DE ALMEIDA',
+                normalizado_consulta_datahora: '14/11/2024 17:11:00',
+                origem: 'web',
+                resultado_encontrado:
+                    'Saldo inexistente de imposto a pagar ou a restituir',
+                situacao_debito_automatico: null,
+                situacao_restituicao: null,
+                status:
+                    'Sua declaração já foi processada.Resultado encontrado: Saldo inexistente de imposto a pagar ou a restituir.',
+                tipo_declaracao: null,
+            },
+        ],
+    },
+    cgu: {
+        _id: '68053b066afa0bd5ca877ad2',
+        return: [
+            {
+                bases_dados_consultas: [
+                    {
+                        nome: 'CEIS',
+                        situacao: 'Nada Consta',
+                        url_detalhes:
+                            'https://portaltransparencia.gov.br/sancoes/consulta?cpfCnpj=06604890660',
+                    },
+                    {
+                        nome: 'CEPIM',
+                        situacao: 'Nada Consta',
+                        url_detalhes:
+                            'https://portaldatransparencia.cgu.gov.br/sancoes/cepim?cnpj=06604890660',
+                    },
+                    {
+                        nome: 'CNEP',
+                        situacao: 'Nada Consta',
+                        url_detalhes:
+                            'https://portaldatransparencia.cgu.gov.br/sancoes/consulta?cpfCnpj=06604890660',
+                    },
+                    {
+                        nome: 'CGU-PJ',
+                        situacao: 'Nada Consta',
+                        url_detalhes: null,
+                    },
+                    {
+                        nome: 'ePAD',
+                        situacao: 'Nada Consta',
+                        url_detalhes: null,
+                    },
+                ],
+                codigo_controle: 'Fa3m3giKH7qZAaqpjja2',
+                conseguiu_emitir_certidao_negativa: true,
+                consultado: 'DANIEL VIANA DE ALMEIDA',
+                cpf_cnpj: '06604890660',
+                data_validade: '20/05/2025',
+                datahora_emissao: '20/04/2025 15:26:36',
+                mensagem:
+                    'Certifica-se que, em consulta aos sistemas ePAD e CGU-PJ e aos cadastros CEIS, CNEP e CEPIM, mantidos pela Corregedoria-Geral da União, NÃO CONSTAM registros de penalidades vigentes ou de procedimentos acusatórios em andamento, relativos ao CPF/CNPJ consultado.',
+                site_receipt:
+                    'https://us-central1-infosimples-data.cloudfunctions.net/infosimples-storage/YcbzdcqaRMGTYpHoGqpQ3v7MqhL5xaztRs_j5MRm884=/1745778399/K8lY5i/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2luZm9zaW1wbGVzLWFwaS10bXAvYXBpL2NndS9jbmMtdGlwbzEvMjAyNTA0MjAxNTI2MzgvaGFodkotZTlBS19OTV91enZyNFVsU1YwcjlSbXdHYnkvNTUxNjQyZjc1YTM4YmFhZDkwMDU3ZWI3M2MwZGQ2NjFfMF80ckE=.pdf',
+            },
+        ],
+    },
+    data_risk: {
+        return: {
+            OnlineQueries: [
+                {
+                    Origin: 'Datarisk',
+                    InputParameters: 'doc{06604890660}',
+                    QueryRawHTMLResult:
+                        '{"MatchKeys":"06604890660","DataReference":"2025-04-21","Score":606.0,"Rating":"B","Result":"Success"}',
+                    QueryResultData: {
+                        TaxIdNumber: '06604890660',
+                        Score: '606',
+                        Rating: 'B',
+                    },
+                    QueryDate: '2025-04-21T13:04:04.8260915Z',
+                },
+            ],
+        },
+    },
+}

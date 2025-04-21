@@ -2,7 +2,7 @@ import { ChartJSNodeCanvas } from 'chartjs-node-canvas';
 import pdfMake from 'pdfmake/build/pdfmake.js';
 import pdfFonts from 'pdfmake/build/vfs_fonts.js';
 import fs from 'fs';
-import Chart from 'chart.js/auto';
+import { modelo1 } from './modelo.js';
 
 // Correct way to assign vfs when using ES modules
 pdfMake.vfs = pdfFonts;
@@ -84,20 +84,111 @@ async function gerarGraficoBase64(score) {
     }
 }
 
-async function gerarPdfScorePdfmake(score) {
+const data = modelo1
+const chatRiskData = JSON.parse(data.chat_risk?.return || '{}');
+async function gerarPdfScorePdfmake(score, data) {
     try {
         const base64Img = await gerarGraficoBase64(score);
         const imageDataUrl = `data:image/png;base64,${base64Img}`;
 
+        // Extract important data from the modelo1 object
+        const basicData = data.basicData?.basic_data?.BasicData || {};
+        const scoreData = data.scores?.return?.pessoaFisica || {};
+        const boaVistaScore = data.boaVista?.return?.essencial?.score_classificacao_varios_modelos?.[0]?.score || 'N/A';
+        const financialRisk = data.financialRisk?.return?.FinancialRisk || {};
+        const lawsuits = data.lawsuits?.return?.Processes || {};
+        const pgfnStatus = data.pgfn?.extended?.[0] || {};
+        const irpfStatus = data.irpf?.return?.[0]?.resultado_encontrado || 'N/A';
+        const protestStatus = data.cenprot?.return || 'N/A';
+        const mteStatus = data.mte?.return?.[0]?.conseguiu_emitir_certidao_negativa || false;
+        const chatRiskData = JSON.parse(data.chat_risk?.return || '{}');
+
         const docDefinition = {
             content: [
-                { text: 'Análise de Crédito', style: 'header' },
-                { text: `Score: ${score} de 1000`, style: 'score' },
-                { image: imageDataUrl, width: 300, alignment: "center" }
+                { text: 'Análise de Crédito', style: 'header', alignment: 'center' },
+
+                // Personal Information Section
+                { text: 'Informações Pessoais', style: 'subheader' },
+                {
+                    columns: [
+                        [
+                            { text: `Nome: ${basicData.Name || 'N/A'}`, style: 'normalText' },
+                            { text: `CPF: ${data.basicData?.extended?.cpf || 'N/A'}`, style: 'normalText' },
+                            { text: `Data de Nascimento: ${data.basicData?.extended?.dataNascimento || 'N/A'}`, style: 'normalText' },
+                            { text: `Idade: ${basicData.Age || 'N/A'} anos`, style: 'normalText' },
+                        ],
+                        [
+                            { text: `Mãe: ${basicData.MotherName || 'N/A'}`, style: 'normalText' },
+                            { text: `Gênero: ${data.basicData?.extended?.sexo || 'N/A'}`, style: 'normalText' },
+                            { text: `Signo: ${basicData.ZodiacSign || 'N/A'}`, style: 'normalText' },
+                        ]
+                    ]
+                },
+
+                // Score Section
+                { text: 'Pontuação de Crédito', style: 'subheader', margin: [0, 15, 0, 0] },
+                {
+                    columns: [
+                        { width: '*', text: '' },
+                        { width: 'auto', image: imageDataUrl, width: 250, alignment: "center" },
+                        { width: '*', text: '' }
+                    ]
+                },
+                { text: `Score: ${score} de 1000`, style: 'scoreText', alignment: 'center' },
+                { text: `Score Boa Vista: ${boaVistaScore}`, style: 'normalText', alignment: 'center' },
+
+                // Credit Analysis Section
+                { text: 'Análise de Crédito', style: 'subheader', margin: [0, 15, 0, 0] },
+                { text: `Capacidade de Pagamento: ${scoreData.capacidadePagamento || 'N/A'}`, style: 'normalText' },
+                { text: `Perfil de Crédito: ${scoreData.perfil || 'N/A'}`, style: 'normalText' },
+
+                // Financial Risk Section
+                { text: 'Risco Financeiro', style: 'subheader', margin: [0, 15, 0, 0] },
+                { text: `Nível de Risco: ${financialRisk.FinancialRiskLevel || 'N/A'}`, style: 'normalText' },
+                { text: `Pontuação de Risco: ${financialRisk.FinancialRiskScore || 'N/A'}`, style: 'normalText' },
+                { text: `Faixa de Renda Estimada: ${financialRisk.EstimatedIncomeRange || 'N/A'}`, style: 'normalText' },
+                { text: `Ativos Totais: ${financialRisk.TotalAssets || 'N/A'}`, style: 'normalText' },
+                { text: `Empregado Atualmente: ${financialRisk.IsCurrentlyEmployed ? 'Sim' : 'Não'}`, style: 'normalText' },
+
+                // Legal Status Section
+                { text: 'Situação Legal', style: 'subheader', margin: [0, 15, 0, 0] },
+                { text: `Processos Judiciais: ${lawsuits.TotalLawsuits || 0}`, style: 'normalText' },
+                { text: `Protestos: ${protestStatus === 'Não constam protestos nos cartórios participantes do Brasil' ? 'Não constam' : protestStatus}`, style: 'normalText' },
+                { text: `Certidão Negativa PGFN: ${pgfnStatus.conseguiu_emitir_certidao_negativa ? 'Emitida' : 'Não Emitida'}`, style: 'normalText' },
+                { text: `Débitos PGFN: ${pgfnStatus.debitos_pgfn ? 'Sim' : 'Não'}`, style: 'normalText' },
+                { text: `Débitos RFB: ${pgfnStatus.debitos_rfb ? 'Sim' : 'Não'}`, style: 'normalText' },
+                { text: `Certidão Negativa MTE: ${mteStatus ? 'Emitida' : 'Não Emitida'}`, style: 'normalText' },
+                { text: `Situação IRPF: ${irpfStatus}`, style: 'normalText' },
+
+                // Summary Section
+                { text: 'Resumo da Análise', style: 'subheader', margin: [0, 15, 0, 0] },
+                { text: chatRiskData.mensagem || 'Análise não disponível', style: 'normalText', margin: [0, 0, 0, 10] },
+
+                // Contact Information
+                { text: 'Informações de Contato', style: 'subheader', margin: [0, 15, 0, 0] },
+                {
+                    ul: (data.basicData?.extended?.telefones || []).map(tel =>
+                        `${tel.telefoneComDDD} (${tel.operadora}) - ${tel.tipoTelefone}${tel.whatsApp ? ' - WhatsApp' : ''}`
+                    )
+                },
+
+                // Address Information
+                { text: 'Endereços', style: 'subheader', margin: [0, 15, 0, 0] },
+                {
+                    ul: (data.basicData?.extended?.enderecos || []).map(end =>
+                        `${end.logradouro}, ${end.numero}${end.complemento ? ', ' + end.complemento : ''} - ${end.bairro}, ${end.cidade}/${end.uf} - CEP: ${end.cep}`
+                    )
+                },
+
+                // Footer
+                { text: `Relatório gerado em: ${new Date().toLocaleDateString('pt-BR')}`, style: 'footer', margin: [0, 30, 0, 0] }
             ],
             styles: {
                 header: { fontSize: 22, bold: true, margin: [0, 0, 0, 10] },
-                score: { fontSize: 18, margin: [0, 0, 0, 15] }
+                subheader: { fontSize: 16, bold: true, margin: [0, 5, 0, 5] },
+                scoreText: { fontSize: 18, bold: true, margin: [0, 5, 0, 5] },
+                normalText: { fontSize: 12, margin: [0, 2, 0, 2] },
+                footer: { fontSize: 10, italics: true, alignment: 'right' }
             }
         };
 
@@ -110,9 +201,10 @@ async function gerarPdfScorePdfmake(score) {
     }
 }
 
-async function gerarPdf(score) {
+
+async function gerarPdf(score, data) {
     try {
-        const pdf = await gerarPdfScorePdfmake(score);
+        const pdf = await gerarPdfScorePdfmake(score, data);
         fs.writeFileSync('score.pdf', pdf);
         console.log('PDF gerado com sucesso: score.pdf');
     } catch (error) {
@@ -121,4 +213,4 @@ async function gerarPdf(score) {
 }
 
 // Chame a função com o score desejado
-gerarPdf(750);
+gerarPdf(chatRiskData.media_score, data);
