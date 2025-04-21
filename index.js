@@ -4,6 +4,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts.js';
 import fs from 'fs';
 import { modelo1 } from './modelo.js';
 import { modelo2 } from './modelo2.js';
+import { modelo3 } from './modelo3.js';
 
 // Correct way to assign vfs when using ES modules
 pdfMake.vfs = pdfFonts;
@@ -85,7 +86,7 @@ async function gerarGraficoBase64(score) {
     }
 }
 
-const data = modelo2
+const data = modelo3
 const chatRiskData = JSON.parse(data.chat_risk?.return || '{}');
 async function gerarPdfScorePdfmake(score, data) {
     try {
