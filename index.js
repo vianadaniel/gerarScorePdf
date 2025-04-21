@@ -5,18 +5,19 @@ import fs from 'fs';
 import { modelo1 } from './modelo.js';
 import { modelo2 } from './modelo2.js';
 import { modelo3 } from './modelo3.js';
+import sharp from 'sharp';
 
 // Correct way to assign vfs when using ES modules
 pdfMake.vfs = pdfFonts;
 
-// Create a simpler canvas
-const width = 500;
-const height = 300;
+// Create a higher quality canvas
+const width = 600;
+const height = 400;
 const chartCanvas = new ChartJSNodeCanvas({
     width,
     height,
     backgroundColour: 'white',
-    devicePixelRatio: 1.5
+    devicePixelRatio: 2.0
 });
 
 async function gerarGraficoBase64(score) {
@@ -28,9 +29,9 @@ async function gerarGraficoBase64(score) {
                 data: [score, 1000 - score],
                 backgroundColor: [
                     score < 300 ? '#f87171' :
-                        score < 600 ? '#facc15' :
-                            '#4ade80',
-                    '#e5e7eb'
+                        score < 600 ? '#FF8001' :
+                            '#4F6352',
+                    '#F5F5F5'
                 ],
                 borderWidth: 0
             }]
@@ -66,11 +67,18 @@ async function gerarGraficoBase64(score) {
                 ctx.save();
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.font = 'bold 24px Arial';
-                ctx.fillText(score.toString(), width / 2, height - 110);
+                ctx.font = 'bold 32px Arial';
+                ctx.fillStyle = '#333333';
+                ctx.fillText(score.toString(), width / 2, height - 140);
 
-                ctx.font = '16px Arial';
-                ctx.fillText('de 1000', width / 2, height - 90);
+                ctx.font = '18px Arial';
+                ctx.fillStyle = '#666666';
+                ctx.fillText('de 1000', width / 2, height - 110);
+
+                // Add risk label
+                ctx.font = 'bold 20px Arial';
+                ctx.fillStyle = score < 300 ? '#f87171' : score < 600 ? '#FF8001' : '#4F6352';
+                ctx.fillText(score < 300 ? 'RISCO ALTO' : score < 600 ? 'RISCO MÉDIO' : 'RISCO BAIXO', width / 2, height - 70);
                 ctx.restore();
             }
         }]
@@ -93,6 +101,11 @@ async function gerarPdfScorePdfmake(score, data) {
         const base64Img = await gerarGraficoBase64(score);
         const imageDataUrl = `data:image/png;base64,${base64Img}`;
 
+        // Convert webp to png and read logo file
+        const pngBuffer = await sharp('./descobreai.webp').toFormat('png').toBuffer();
+        const logoBase64 = pngBuffer.toString('base64');
+        const logoDataUrl = `data:image/png;base64,${logoBase64}`;
+
         // Extract important data from the modelo1 object
         const basicData = data.basicData?.basic_data?.BasicData || {};
         const scoreData = data.scores?.return?.pessoaFisica || {};
@@ -106,91 +119,207 @@ async function gerarPdfScorePdfmake(score, data) {
         const chatRiskData = JSON.parse(data.chat_risk?.return || '{}');
 
         const docDefinition = {
+            pageSize: 'A4',
+            pageMargins: [30, 30, 30, 30],
+            background: function () {
+                return {
+                    canvas: [
+                        {
+                            type: 'rect',
+                            x: 0, y: 0, w: 595, h: 842,
+                            color: '#FFFFFF'
+                        }
+                    ]
+                };
+            },
             content: [
-                { text: 'Análise de Crédito', style: 'header', alignment: 'center' },
-
-                // Personal Information Section
-                { text: 'Informações Pessoais', style: 'subheader' },
                 {
                     columns: [
-                        [
-                            { text: `Nome: ${basicData.Name || 'N/A'}`, style: 'normalText' },
-                            { text: `CPF: ${data.basicData?.extended?.cpf || 'N/A'}`, style: 'normalText' },
-                            { text: `Data de Nascimento: ${data.basicData?.extended?.dataNascimento || 'N/A'}`, style: 'normalText' },
-                            { text: `Idade: ${basicData.Age || 'N/A'} anos`, style: 'normalText' },
-                        ],
-                        [
-                            { text: `Mãe: ${basicData.MotherName || 'N/A'}`, style: 'normalText' },
-                            { text: `Gênero: ${data.basicData?.extended?.sexo || 'N/A'}`, style: 'normalText' },
-                            { text: `Signo: ${basicData.ZodiacSign || 'N/A'}`, style: 'normalText' },
-                        ]
+                        {
+                            width: '40%',
+                            stack: [
+                                { image: logoDataUrl, width: 70, alignment: 'center', margin: [0, 0, 0, 5] },
+                                { text: 'ANÁLISE DE CRÉDITO', style: 'header', alignment: 'center', color: '#384A39' },
+                                { image: imageDataUrl, width: 200, alignment: "center", margin: [0, 10, 0, 5] },
+                                { text: `Score: ${score}/1000`, style: 'scoreText', alignment: 'center' },
+                                {
+                                    text: score < 300 ? 'RISCO ALTO' : score < 600 ? 'RISCO MÉDIO' : 'RISCO BAIXO',
+                                    style: 'riskLabel',
+                                    color: score < 300 ? '#f87171' : score < 600 ? '#FF8001' : '#4F6352',
+                                    alignment: 'center',
+                                    margin: [0, 0, 0, 10]
+                                },
+
+                                // Personal Information Section
+                                {
+                                    table: {
+                                        headerRows: 1,
+                                        widths: ['*'],
+                                        body: [
+                                            [{ text: 'INFORMAÇÕES PESSOAIS', style: 'tableHeader', fillColor: '#384A39', color: 'white' }],
+                                            [{
+                                                stack: [
+                                                    { text: `Nome: ${basicData.Name || 'N/A'}`, style: 'smallText', margin: [0, 3, 0, 0] },
+                                                    { text: `CPF: ${data.basicData?.extended?.cpf || 'N/A'}`, style: 'smallText', margin: [0, 0, 0, 0] },
+                                                    { text: `Nascimento: ${data.basicData?.extended?.dataNascimento || 'N/A'}`, style: 'smallText', margin: [0, 0, 0, 0] },
+                                                    { text: `Mãe: ${basicData.MotherName || 'N/A'}`, style: 'smallText', margin: [0, 0, 0, 0] },
+                                                    { text: `Gênero: ${data.basicData?.extended?.sexo || 'N/A'}`, style: 'smallText', margin: [0, 0, 0, 3] }
+                                                ]
+                                            }]
+                                        ]
+                                    },
+                                    margin: [0, 5, 0, 0]
+                                },
+
+                                // Contact Information (condensed)
+                                {
+                                    table: {
+                                        headerRows: 1,
+                                        widths: ['*'],
+                                        body: [
+                                            [{ text: 'CONTATO', style: 'tableHeader', fillColor: '#384A39', color: 'white' }],
+                                            [{
+                                                ul: (data.basicData?.extended?.telefones || []).slice(0, 2).map(tel =>
+                                                    `${tel.telefoneComDDD}${tel.whatsApp ? ' (WhatsApp)' : ''}`
+                                                ),
+                                                margin: [0, 3, 0, 3]
+                                            }]
+                                        ]
+                                    },
+                                    margin: [0, 5, 0, 0]
+                                }
+                            ]
+                        },
+                        {
+                            width: '58%',
+                            margin: [10, 0, 0, 0],
+                            stack: [
+                                // Score Summary and Credit Analysis
+                                {
+                                    table: {
+                                        headerRows: 1,
+                                        widths: ['*'],
+                                        body: [
+                                            [{ text: 'RESUMO DA ANÁLISE', style: 'tableHeader', fillColor: '#384A39', color: 'white' }],
+                                            [{ text: chatRiskData.mensagem || 'Análise não disponível', style: 'normalText', margin: [0, 3, 0, 3] }]
+                                        ]
+                                    },
+                                    margin: [0, 28, 0, 0]
+                                },
+
+                                // Credit Details Row
+                                {
+                                    columns: [
+                                        {
+                                            width: '48%',
+                                            margin: [0, 5, 5, 0],
+                                            table: {
+                                                headerRows: 1,
+                                                widths: ['*'],
+                                                body: [
+                                                    [{ text: 'CRÉDITO', style: 'tableHeader', fillColor: '#384A39', color: 'white' }],
+                                                    [{
+                                                        stack: [
+                                                            { text: `Boa Vista: ${boaVistaScore}`, style: 'smallText', margin: [0, 3, 0, 0] },
+                                                            { text: `Capacidade: ${scoreData.capacidadePagamento || 'N/A'}`, style: 'smallText', margin: [0, 0, 0, 0] },
+                                                            { text: `Perfil: ${scoreData.perfil || 'N/A'}`, style: 'smallText', margin: [0, 0, 0, 3] }
+                                                        ]
+                                                    }]
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            width: '48%',
+                                            margin: [5, 5, 0, 0],
+                                            table: {
+                                                headerRows: 1,
+                                                widths: ['*'],
+                                                body: [
+                                                    [{ text: 'RISCO FINANCEIRO', style: 'tableHeader', fillColor: '#384A39', color: 'white' }],
+                                                    [{
+                                                        stack: [
+                                                            { text: `Nível: ${financialRisk.FinancialRiskLevel || 'N/A'}`, style: 'smallText', margin: [0, 3, 0, 0] },
+                                                            { text: `Pontuação: ${financialRisk.FinancialRiskScore || 'N/A'}`, style: 'smallText', margin: [0, 0, 0, 0] },
+                                                            { text: `Renda: ${financialRisk.EstimatedIncomeRange || 'N/A'}`, style: 'smallText', margin: [0, 0, 0, 3] }
+                                                        ]
+                                                    }]
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+
+                                // Legal Status Section
+                                {
+                                    table: {
+                                        headerRows: 1,
+                                        widths: ['*'],
+                                        body: [
+                                            [{ text: 'SITUAÇÃO LEGAL', style: 'tableHeader', fillColor: '#384A39', color: 'white' }],
+                                            [{
+                                                columns: [
+                                                    [
+                                                        { text: `Processos: ${lawsuits.TotalLawsuits || 0}`, style: 'smallText', margin: [0, 3, 0, 0] },
+                                                        { text: `Protestos: ${protestStatus === 'Não constam protestos nos cartórios participantes do Brasil' ? 'Não constam' : 'Constam'}`, style: 'smallText', margin: [0, 0, 0, 0] },
+                                                        { text: `PGFN: ${pgfnStatus.conseguiu_emitir_certidao_negativa ? 'Regular' : 'Irregular'}`, style: 'smallText', margin: [0, 0, 0, 0] }
+                                                    ],
+                                                    [
+                                                        { text: `Débitos PGFN: ${pgfnStatus.debitos_pgfn ? 'Sim' : 'Não'}`, style: 'smallText', margin: [0, 3, 0, 0] },
+                                                        { text: `Débitos RFB: ${pgfnStatus.debitos_rfb ? 'Sim' : 'Não'}`, style: 'smallText', margin: [0, 0, 0, 0] },
+                                                        { text: `IRPF: ${irpfStatus === 'DECLAROU' ? 'Declarado' : irpfStatus}`, style: 'smallText', margin: [0, 0, 0, 3] }
+                                                    ]
+                                                ]
+                                            }]
+                                        ]
+                                    },
+                                    margin: [0, 5, 0, 0]
+                                },
+
+                                // Address
+                                {
+                                    table: {
+                                        headerRows: 1,
+                                        widths: ['*'],
+                                        body: [
+                                            [{ text: 'ENDEREÇO PRINCIPAL', style: 'tableHeader', fillColor: '#384A39', color: 'white' }],
+                                            [{
+                                                text: data.basicData?.extended?.enderecos?.[0] ?
+                                                    `${data.basicData.extended.enderecos[0].logradouro}, ${data.basicData.extended.enderecos[0].numero}${data.basicData.extended.enderecos[0].complemento ? ', ' + data.basicData.extended.enderecos[0].complemento : ''} - ${data.basicData.extended.enderecos[0].bairro}, ${data.basicData.extended.enderecos[0].cidade}/${data.basicData.extended.enderecos[0].uf}` :
+                                                    'Endereço não disponível',
+                                                style: 'smallText',
+                                                margin: [0, 3, 0, 3]
+                                            }]
+                                        ]
+                                    },
+                                    margin: [0, 5, 0, 0]
+                                }
+                            ]
+                        }
                     ]
-                },
-
-                // Score Section
-                { text: 'Pontuação de Crédito', style: 'subheader', margin: [0, 15, 0, 0] },
-                {
-                    columns: [
-                        { width: '*', text: '' },
-                        { width: 'auto', image: imageDataUrl, width: 250, alignment: "center" },
-                        { width: '*', text: '' }
-                    ]
-                },
-                { text: `Score: ${score} de 1000`, style: 'scoreText', alignment: 'center' },
-                { text: `Score Boa Vista: ${boaVistaScore}`, style: 'normalText', alignment: 'center' },
-
-                // Credit Analysis Section
-                { text: 'Análise de Crédito', style: 'subheader', margin: [0, 15, 0, 0] },
-                { text: `Capacidade de Pagamento: ${scoreData.capacidadePagamento || 'N/A'}`, style: 'normalText' },
-                { text: `Perfil de Crédito: ${scoreData.perfil || 'N/A'}`, style: 'normalText' },
-
-                // Financial Risk Section
-                { text: 'Risco Financeiro', style: 'subheader', margin: [0, 15, 0, 0] },
-                { text: `Nível de Risco: ${financialRisk.FinancialRiskLevel || 'N/A'}`, style: 'normalText' },
-                { text: `Pontuação de Risco: ${financialRisk.FinancialRiskScore || 'N/A'}`, style: 'normalText' },
-                { text: `Faixa de Renda Estimada: ${financialRisk.EstimatedIncomeRange || 'N/A'}`, style: 'normalText' },
-                { text: `Ativos Totais: ${financialRisk.TotalAssets || 'N/A'}`, style: 'normalText' },
-                { text: `Empregado Atualmente: ${financialRisk.IsCurrentlyEmployed ? 'Sim' : 'Não'}`, style: 'normalText' },
-
-                // Legal Status Section
-                { text: 'Situação Legal', style: 'subheader', margin: [0, 15, 0, 0] },
-                { text: `Processos Judiciais: ${lawsuits.TotalLawsuits || 0}`, style: 'normalText' },
-                { text: `Protestos: ${protestStatus === 'Não constam protestos nos cartórios participantes do Brasil' ? 'Não constam' : protestStatus}`, style: 'normalText' },
-                { text: `Certidão Negativa PGFN: ${pgfnStatus.conseguiu_emitir_certidao_negativa ? 'Emitida' : 'Não Emitida'}`, style: 'normalText' },
-                { text: `Débitos PGFN: ${pgfnStatus.debitos_pgfn ? 'Sim' : 'Não'}`, style: 'normalText' },
-                { text: `Débitos RFB: ${pgfnStatus.debitos_rfb ? 'Sim' : 'Não'}`, style: 'normalText' },
-                { text: `Certidão Negativa MTE: ${mteStatus ? 'Emitida' : 'Não Emitida'}`, style: 'normalText' },
-                { text: `Situação IRPF: ${irpfStatus}`, style: 'normalText' },
-
-                // Summary Section
-                { text: 'Resumo da Análise', style: 'subheader', margin: [0, 15, 0, 0] },
-                { text: chatRiskData.mensagem || 'Análise não disponível', style: 'normalText', margin: [0, 0, 0, 10] },
-
-                // Contact Information
-                { text: 'Informações de Contato', style: 'subheader', margin: [0, 15, 0, 0] },
-                {
-                    ul: (data.basicData?.extended?.telefones || []).map(tel =>
-                        `${tel.telefoneComDDD} (${tel.operadora}) - ${tel.tipoTelefone}${tel.whatsApp ? ' - WhatsApp' : ''}`
-                    )
-                },
-
-                // Address Information
-                { text: 'Endereços', style: 'subheader', margin: [0, 15, 0, 0] },
-                {
-                    ul: (data.basicData?.extended?.enderecos || []).map(end =>
-                        `${end.logradouro}, ${end.numero}${end.complemento ? ', ' + end.complemento : ''} - ${end.bairro}, ${end.cidade}/${end.uf} - CEP: ${end.cep}`
-                    )
                 },
 
                 // Footer
-                { text: `Relatório gerado em: ${new Date().toLocaleDateString('pt-BR')}`, style: 'footer', margin: [0, 30, 0, 0] }
+                {
+                    canvas: [{ type: 'line', x1: 0, y1: 0, x2: 535, y2: 0, lineWidth: 1, lineColor: '#617A65' }],
+                    margin: [0, 10, 0, 5]
+                },
+                {
+                    columns: [
+                        { image: logoDataUrl, width: 30, alignment: 'left', margin: [0, 0, 0, 0] },
+                        { text: `Descobreai | Relatório gerado em: ${new Date().toLocaleDateString('pt-BR')}`, style: 'footer', alignment: 'right', color: '#384A39' }
+                    ],
+                    margin: [0, 0, 0, 0]
+                }
             ],
             styles: {
-                header: { fontSize: 22, bold: true, margin: [0, 0, 0, 10] },
-                subheader: { fontSize: 16, bold: true, margin: [0, 5, 0, 5] },
-                scoreText: { fontSize: 18, bold: true, margin: [0, 5, 0, 5] },
-                normalText: { fontSize: 12, margin: [0, 2, 0, 2] },
-                footer: { fontSize: 10, italics: true, alignment: 'right' }
+                header: { fontSize: 22, bold: true, margin: [0, 0, 0, 10], color: '#384A39' },
+                tableHeader: { fontSize: 13, bold: true, margin: [0, 3, 0, 3] },
+                subheader: { fontSize: 17, bold: true, margin: [0, 5, 0, 3], color: '#4F6352' },
+                scoreText: { fontSize: 20, bold: true, margin: [0, 3, 0, 3], color: '#4F6352' },
+                riskLabel: { fontSize: 17, bold: true, margin: [0, 0, 0, 3] },
+                normalText: { fontSize: 11, margin: [0, 2, 0, 2], color: '#384A39' },
+                smallText: { fontSize: 10, margin: [0, 1, 0, 1], color: '#4F6352' },
+                footer: { fontSize: 8, italics: true, alignment: 'right', color: '#617A65' }
             }
         };
 
